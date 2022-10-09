@@ -5,9 +5,8 @@
 Functionality Description:
 
 *I want to design an application* that allows users to fairly distribute chores in a household and track the completion
-of these chores. Ideally the application could distribute chores based on difficulty, time-spent, track record
-with completing chores and perhaps other factors in mind. The
-application would semi-randomly assign people chores based on these factors,
+of these chores. Ideally the application could distribute chores based on difficulty
+of completing chores. The application would semi-randomly assign people chores based on difficulty,
 so that everyone in the household would do their fair share of work.
 *This application is to be used by a member of a household* who prefers
 a simpler way of ensuring work gets done in the house. Everyone in the household
@@ -29,5 +28,4 @@ also **reward those** who always complete their chores by giving them easier wor
 - As a user, I want to be able to add different people to my chore tracker
 - As a user, I want to be able to specify the difficulty of each chore
 - As a user, I want to be able to randomly assign tasks to different people
-- As a user, I want the number and difficulty of tasks to be divided fairly
-- As a user, I want to track the completion of chores
+- As a user, I want to be able to see who still hasn't completed their choresf
