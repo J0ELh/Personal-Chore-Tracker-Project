@@ -15,7 +15,7 @@ are not doing their fair share of work.
 
 *I am interested in developing this application,* since I believe
 that a big reason for conflict in the household is a lack of transparency. If all
-members of a household knew how much work everyone else was doing, they would feel responsiblity
+members of a household knew how much work everyone else was doing, they would feel responsibility
 to do their fair share. The application would also prevent members of a household from feeling
 discouraged for doing "all the work" since the application would **show how much others are contributing** and ideally
 also **reward those** who always complete their chores by giving them easier work in the future.
@@ -26,6 +26,5 @@ also **reward those** who always complete their chores by giving them easier wor
 
 - As a user, I want to be able to add tasks to my chore tracker
 - As a user, I want to be able to add different people to my chore tracker
-- As a user, I want to be able to specify the difficulty of each chore
 - As a user, I want to be able to randomly assign tasks to different people
-- As a user, I want to be able to see who still hasn't completed their choresf
+- As a user, I want to be able to see who still hasn't completed their chores
