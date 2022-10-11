@@ -28,10 +28,29 @@ public class PersonTest {
     }
 
     @Test
-    public void testCompleteChore(){
+    public void testCompleteChoreOneAssignedButCompleted(){
         p.assignChore(new Chore("Vacuum", Chore.Difficulty.HARD));
         p.completeChore("Vacuum");
         assertEquals(0, p.getChoreSum());
+    }
+
+    @Test
+    public void testCompleteChoreNoChore(){
+        p.completeChore("test");
+        assertEquals(0, p.getChoreSum());
+    }
+
+    @Test
+    public void testCompleteChoreNameNotEquals(){
+        p.assignChore(new Chore("notVacuum", Chore.Difficulty.HARD));
+        p.completeChore("Vacuum");
+        assertEquals(3, p.getChoreSum());
+    }
+
+    @Test
+    public void testCompleteChoreOneNotCompleted(){
+        p.assignChore(new Chore("Vacuum", Chore.Difficulty.HARD));
+        assertEquals(3, p.getChoreSum());
     }
 
     @Test
