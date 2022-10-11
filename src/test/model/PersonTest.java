@@ -27,12 +27,6 @@ public class PersonTest {
         assertEquals(3, p.getChoreSum());
     }
 
-    @Test
-    public void testCompleteChoreOneAssignedButCompleted(){
-        p.assignChore(new Chore("Vacuum", Chore.Difficulty.HARD));
-        p.completeChore("Vacuum");
-        assertEquals(0, p.getChoreSum());
-    }
 
     @Test
     public void testCompleteChoreNoChore(){
@@ -50,7 +44,16 @@ public class PersonTest {
     @Test
     public void testCompleteChoreOneNotCompleted(){
         p.assignChore(new Chore("Vacuum", Chore.Difficulty.HARD));
-        assertEquals(3, p.getChoreSum());
+        p.completeChore("Vacuum");
+        assertEquals(0, p.getChoreSum());
+    }
+
+    @Test
+    public void testCompletedChoreAlreadyCompleted(){
+        p.assignChore(new Chore("Vacuum", Chore.Difficulty.HARD));
+        p.completeChore("Vacuum");
+        p.completeChore("Vacuum");
+        assertEquals(0, p.getChoreSum());
     }
 
     @Test
