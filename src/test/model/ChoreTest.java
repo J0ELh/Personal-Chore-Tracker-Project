@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ChoreTest {
     Chore c;
@@ -18,6 +18,13 @@ class ChoreTest {
     public void testConstructor() {
         assertEquals("Vacuum", c.getChoreName());
         assertEquals(Chore.Difficulty.MEDIUM, c.getDifficulty());
+    }
+
+    @Test
+    public void testCompleteChore(){
+        assertFalse(c.isCompleted());
+        c.completeChore();
+        assertTrue(c.isCompleted());
     }
 
     @Test
@@ -48,6 +55,16 @@ class ChoreTest {
         assertEquals(1, c2.getDifficultyByInt());
         Chore c3 = new Chore("hard difficulty", Chore.Difficulty.HARD);
         assertEquals(3, c3.getDifficultyByInt());
+    }
+
+    @Test
+    public void testGetChoreName(){
+        assertEquals("Vacuum", c.getChoreName());
+    }
+
+    @Test
+    public void testToString(){
+        assertEquals("Vacuum MEDIUM", c.toString());
     }
 
 

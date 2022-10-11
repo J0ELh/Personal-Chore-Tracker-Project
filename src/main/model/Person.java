@@ -39,7 +39,7 @@ public class Person {
 //        }
 //    }
 
-    //REQURIES choreName of a chore that matches at least one of the names in assignedChores
+    //REQUIRES choreName of a chore that matches at least one of the names in assignedChores
     //MODIFIES this
     //EFFECTS deducts int value of difficulty from choreSum and marks chore as completed
     public void completeChore(String choreName) {
@@ -53,15 +53,17 @@ public class Person {
     }
 
     //EFFECTS prints a list of chores this person still needs to complete
-    public void listChores() {
-        System.out.println("Person " + this.getName() + ":");
-        System.out.println("Chores to complete:");
+    public String listChores() {
+        //use string builder
+        StringBuilder output = new StringBuilder();
+        output.append("Person " + this.getName() + ":\nChores to complete:\n");
         for (int i = 0; i < assignedChores.size(); i++) {
             if (!assignedChores.get(i).isCompleted()) {
-                System.out.println(assignedChores.get(i));
+                output.append(assignedChores.get(i) + "\n");
             }
         }
-        System.out.println();
+        output.append("\n");
+        return output.toString();
     }
 
 }

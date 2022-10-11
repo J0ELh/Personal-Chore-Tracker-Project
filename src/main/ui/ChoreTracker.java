@@ -47,6 +47,7 @@ public class ChoreTracker {
 
     //EFFECTS displays menu to console
     private void displayMenu() {
+        System.out.println("---------------------------------------------------------------------------------------");
         System.out.println("Please choose from one of the following options:\n (Enter an integer between 1 and 6)\n");
         System.out.println("1: Add Member");
         System.out.println("2: Add Chore");
@@ -54,6 +55,7 @@ public class ChoreTracker {
         System.out.println("4: View Members Who Haven't Completed Their Assigned Chores");
         System.out.println("5: Randomly Assign Chores");
         System.out.println("6: Exit");
+        System.out.println("---------------------------------------------------------------------------------------");
     }
 
     //REQUIRES input within the options (1, 2, 3, 4, 5)
@@ -126,7 +128,7 @@ public class ChoreTracker {
     private void completeChoreOption() {
         System.out.println("Given the following, please select a person: ");
         for (int i = 0; i < listOfMembers.size(); i++) {
-            listOfMembers.get(i).listChores();
+            System.out.println(listOfMembers.get(i).listChores());
         }
         String person = input.nextLine();
         System.out.println("Which chore do you want to complete?");
@@ -151,7 +153,7 @@ public class ChoreTracker {
         listOfChoresToComplete.add(c);
     }
 
-    //#####################################CAN I SUPPRESS WARNINGS? #################################################
+    //##################################### CAN I SUPPRESS WARNINGS? #################################################
     //ALSO ASK ABOUT FOR LOOP BELOW. THE LINES NEED TO BE THAT LONG OTHERWISE IT's KIND OF USELESS
     //MODIFIES this, Person, Chore
     //EFFECTS removes all chores to complete and instead assigns all those
@@ -170,7 +172,7 @@ public class ChoreTracker {
         while (!listOfChoresToComplete.isEmpty()) {
             int memberIndex = -1;
             int choreIndex = -1;
-            while (memberIndex < listOfMembers.size() && choreIndex < listOfChoresToComplete.size()) {
+            while (memberIndex + 1 < listOfMembers.size() && choreIndex < listOfChoresToComplete.size()) {
                 if (listOfChoresToComplete.isEmpty()) {
                     break;
                 }
@@ -190,7 +192,6 @@ public class ChoreTracker {
                         listOfChoresToComplete.remove(choreIndex);
                         choreIndex--;
                     }
-//                    listOfChoresToComplete.clear();
                 }
             }
         }

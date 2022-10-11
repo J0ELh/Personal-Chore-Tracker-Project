@@ -33,4 +33,25 @@ public class PersonTest {
         p.completeChore("Vacuum");
         assertEquals(0, p.getChoreSum());
     }
+
+    @Test
+    public void testListChoresNoChores(){
+        assertEquals("Person Peter:\n" + "Chores to complete:\n\n", p.listChores());
+    }
+    @Test
+    public void testListChoresOneChore(){
+        p.assignChore(new Chore("Vacuum", Chore.Difficulty.HARD));
+        assertEquals("Person Peter:\n" +
+                "Chores to complete:\n" +
+                "Vacuum HARD\n\n", p.listChores());
+    }
+
+    @Test
+    public void testListChoresCompletedChore(){
+        p.assignChore(new Chore("Vacuum", Chore.Difficulty.HARD));
+        p.completeChore("Vacuum");
+        assertEquals("Person Peter:\n" +
+                "Chores to complete:\n\n", p.listChores());
+    }
+
 }

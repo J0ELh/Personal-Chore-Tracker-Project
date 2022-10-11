@@ -38,10 +38,12 @@ public class Chore implements Comparable<Chore> {
         return this.taskName;
     }
 
+    //EFFECTS returns whether the task has been completed
     public Boolean isCompleted() {
         return this.isCompleted;
     }
 
+    //EFFECTS returns the difficulty of the Chore
     public Difficulty getDifficulty() {
         return this.difficulty;
     }
@@ -53,13 +55,12 @@ public class Chore implements Comparable<Chore> {
                 return 1;
             case MEDIUM:
                 return 2;
-            case HARD:
+            default:
                 return 3;
         }
-
-        return -1;
     }
 
+    //EFFECTS returns the description of the chore and its difficulty
     @Override
     public String toString() {
         return this.getChoreName() + " " + this.getDifficulty();
