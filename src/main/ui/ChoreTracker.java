@@ -153,8 +153,7 @@ public class ChoreTracker {
         listOfChoresToComplete.add(c);
     }
 
-    //##################################### CAN I SUPPRESS WARNINGS? #################################################
-    //ALSO ASK ABOUT FOR LOOP BELOW. THE LINES NEED TO BE THAT LONG OTHERWISE IT's KIND OF USELESS
+
     //MODIFIES this, Person, Chore
     //EFFECTS removes all chores to complete and instead assigns all those
     //chores to the people in the household. The chores are on average distributed
