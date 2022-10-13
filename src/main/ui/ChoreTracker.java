@@ -15,7 +15,8 @@ public class ChoreTracker {
     private final List<Person>  listOfMembers;
     private final Scanner input;
 
-
+    //EFFECTS initializes list of chores to complete, list of members, the scanner, and launches the application
+    //in the console
     public ChoreTracker() {
         listOfChoresToComplete = new ArrayList<>();
         listOfMembers = new ArrayList<>();
@@ -91,12 +92,6 @@ public class ChoreTracker {
                 System.out.println(listOfMembers.get(i).getName());
             }
         }
-//        for (Person i: listOfMembers) {
-//            if (i.getChoreSum() > 0) {
-//                System.out.println(i.getName());
-//            }
-//
-//        }
     }
 
     //MODIFIES this
@@ -114,12 +109,9 @@ public class ChoreTracker {
             case 1:
                 this.addChoreToComplete(new Chore(choreName, Chore.Difficulty.MEDIUM));
                 break;
-            case 2:
+            default:
                 this.addChoreToComplete(new Chore(choreName, Chore.Difficulty.HARD));
                 break;
-                //MAY NEED TO INCLUDE THE FOLLOWING LINES
-//            default:
-//                System.out.println("----- Creating chore failed -----");
         }
     }
 

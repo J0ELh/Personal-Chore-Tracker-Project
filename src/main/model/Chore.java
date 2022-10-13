@@ -2,8 +2,7 @@ package model;
 
 //A chore is a task that a Person from the household has to execute and complete. It has a difficulty rating included.
 public class Chore implements Comparable<Chore> {
-
-
+    //Difficulty describes the difficulty of a chore on a scale from easy, medium to hard
     public enum Difficulty  { EASY, MEDIUM, HARD }
 
     private final Difficulty difficulty;
@@ -11,6 +10,7 @@ public class Chore implements Comparable<Chore> {
     private Boolean isCompleted = false;
 
     //REQUIRES 0 <= difficulty 2
+    //EFFECTS initializes new Chore object with given difficulty rating and name
     public Chore(String name, Difficulty difficulty) {
         this.taskName = name;
         this.difficulty = difficulty;
@@ -24,7 +24,6 @@ public class Chore implements Comparable<Chore> {
     }
 
 
-    //REQUIRES Object c is a Chore
     //EFFECTS returns comparison based on standard collection compareTo method
     @Override
     public int compareTo(Chore c) {

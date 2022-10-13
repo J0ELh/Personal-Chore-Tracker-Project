@@ -9,7 +9,7 @@ public class Person {
     private final List<Chore> assignedChores;
     private int choreSum;
 
-
+    //EFFECTS initializes Person object with name "name," initializes arrayList and sets the sum of chore points to 0
     public Person(String name) {
         this.name = name;
         assignedChores = new ArrayList<>();
@@ -33,11 +33,6 @@ public class Person {
         choreSum += c.getDifficultyByInt();
     }
 
-//    public void assignChores(Chore... c) {
-//        for (int i = 0; i < c.length; i++) {
-//            assignedChores.add(c[i]);
-//        }
-//    }
 
     //REQUIRES choreName of a chore that matches at least one of the names in assignedChores
     //MODIFIES this
