@@ -28,3 +28,5 @@ also **reward those** who always complete their chores by giving them easier wor
 - As a user, I want to be able to add different people to my chore tracker
 - As a user, I want to be able to randomly assign tasks to different people
 - As a user, I want to be able to see who still hasn't completed their chores
+- As a user, I want to be able to save my current chore tracker state to a file
+- As a user, I want to be able to be able to load my chore tracker state from file 
