@@ -21,7 +21,7 @@ public class ChoreTrackerTest {
 
     @Test
     public void testReturnMembersWithUncompletedChoresOnEmptyList() {
-        assertEquals("", ct.returnMembersWithUncompletedChores());
+        assertEquals("", ct.getMembersWithUncompletedChores());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ChoreTrackerTest {
         ct.addPerson(new Person("Jake"));
         ct.addChoreToComplete(new Chore("FDS", Chore.Difficulty.EASY));
         ct.assignChoresRandomly();
-        assertEquals("Jake\n", ct.returnMembersWithUncompletedChores());
+        assertEquals("Jake\n", ct.getMembersWithUncompletedChores());
         assertEquals(1, ct.getListOfMembers().size());
     }
 
@@ -51,9 +51,9 @@ public class ChoreTrackerTest {
         ct.addPerson(jake);
         ct.addChoreToComplete(new Chore("Chore", Chore.Difficulty.HARD));
         ct.assignChoresRandomly();
-        assertEquals("Jake\n", ct.returnMembersWithUncompletedChores());
+        assertEquals("Jake\n", ct.getMembersWithUncompletedChores());
         jake.completeChore("Chore");
-        assertEquals("", ct.returnMembersWithUncompletedChores());
+        assertEquals("", ct.getMembersWithUncompletedChores());
 
     }
 

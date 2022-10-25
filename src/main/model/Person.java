@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 //A person is a member of a household and can execute and complete Chores.
-public class Person {
+public class Person implements Writable {
     private final String name;
-    private final List<Chore> assignedChores;
+    private List<Chore> assignedChores;
     private int choreSum;
 
     //EFFECTS initializes Person object with name "name," initializes arrayList and sets the sum of chore points to 0
@@ -61,4 +65,35 @@ public class Person {
         return output.toString();
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("choresAssigned", assignedChoresToJason());
+        json.put("choreSum", choreSum);
+
+        return json;
+    }
+
+    private JSONArray assignedChoresToJason() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Chore c : assignedChores) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    //REQUIRES choreSum >= 0 and choreSum is the choreSum saved in JSON
+    //EFFECTS sets choreSum to value
+    public void setChoreSum(int choreSum) {
+        this.choreSum = choreSum;
+    }
+
+    //REQUIRES choreList is the arraylist saved in JSON
+    //EFFECTS sets the list of chores the person has had assigned to them
+    public void setChoreList(ArrayList<Chore> choreList) {
+        this.assignedChores = choreList;
+    }
 }

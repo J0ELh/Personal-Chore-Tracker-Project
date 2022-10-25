@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
 //A ChoreTracker helps a household assign chores randomly to people and
-public class ChoreTracker {
+public class ChoreTracker implements Writable {
     private final List<Chore> listOfChoresToComplete;
     private final List<Person>  listOfMembers;
 
@@ -20,7 +24,7 @@ public class ChoreTracker {
 
 
     //EFFECTS returns list of people who have not completed all their chores to the console
-    public String returnMembersWithUncompletedChores() {
+    public String getMembersWithUncompletedChores() {
         String output = "";
         for (int i = 0; i < listOfMembers.size(); i++) {
             if (listOfMembers.get(i).getChoreSum() > 0) {
@@ -141,5 +145,35 @@ public class ChoreTracker {
     //EFFECTS returns a copy of the list of Chores to complete in the household
     public ArrayList<Chore> getListOfChoresToComplete() {
         return new ArrayList<>(listOfChoresToComplete);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("listOfChoresToComplete", listOfChoresToJason());
+        json.put("listOfMembers", listOfMembersToJason());
+        return json;
+    }
+
+    // EFFECTS: returns chores in this workroom as a JSON array
+    private JSONArray listOfChoresToJason() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Chore c : listOfChoresToComplete) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns chores in this workroom as a JSON array
+    private JSONArray listOfMembersToJason() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Person p : listOfMembers) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
     }
 }
