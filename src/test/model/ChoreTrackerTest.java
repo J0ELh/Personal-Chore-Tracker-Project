@@ -61,10 +61,10 @@ public class ChoreTrackerTest {
     public void testAddChoreWithDifficulty() {
         Person jake = new Person("Jake");
         ct.addPerson(jake);
-        ct.addChoreWithDifficulty("testMediumChore", 2);
+        ct.addChoreWithDifficulty("testMediumChore", 1);
         ct.assignChoresRandomly();
-        ct.addChoreWithDifficulty("testEasyChore", 1);
-        ct.addChoreWithDifficulty("testHardChore", 3);
+        ct.addChoreWithDifficulty("testEasyChore", 0);
+        ct.addChoreWithDifficulty("testHardChore", 2);
         assertEquals(3, jake.getChoreSum());
     }
 
@@ -92,6 +92,16 @@ public class ChoreTrackerTest {
         ct.addChoreToComplete(new Chore("asfd", Chore.Difficulty.MEDIUM));
         ct.assignChoresRandomly();
         ct.completeChoreOption(tmpPerson.getName(), "asfd");
+        assertEquals(0, ct.getListOfChoresToComplete().size());
+    }
+
+    @Test
+    public void testCompleteChoreOptionWithChoresToCompleteButWrongName() {
+        Person tmpPerson = new Person("Steve");
+        ct.addPerson(tmpPerson);
+        ct.addChoreToComplete(new Chore("asfd", Chore.Difficulty.MEDIUM));
+        ct.assignChoresRandomly();
+        ct.completeChoreOption("IncorrectName", "asfd");
         assertEquals(0, ct.getListOfChoresToComplete().size());
     }
 
