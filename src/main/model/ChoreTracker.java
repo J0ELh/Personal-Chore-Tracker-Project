@@ -94,10 +94,7 @@ public class ChoreTracker implements Writable {
         while (!listOfChoresToComplete.isEmpty()) {
             int memberIndex = -1;
             int choreIndex = -1;
-            while (memberIndex + 1 < listOfMembers.size() && choreIndex < listOfChoresToComplete.size()) {
-                if (listOfChoresToComplete.isEmpty()) {
-                    break;
-                }
+            while (memberIndex + 1 < listOfMembers.size() && choreIndex + 1 < listOfChoresToComplete.size()) {
                 memberIndex++;
                 choreIndex++;
                 Chore tempChore = listOfChoresToComplete.get(choreIndex);

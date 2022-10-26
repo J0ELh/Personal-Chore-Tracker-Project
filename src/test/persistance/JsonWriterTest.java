@@ -63,6 +63,8 @@ class JsonWriterTest extends JsonTest {
             ct.assignChoresRandomly();
             ct.addPerson(d);
             ct.addChoreToComplete(new Chore("Chore with difficulty easy unassigned", Chore.Difficulty.EASY));
+            a.assignChore(new Chore("CompletedChore", Chore.Difficulty.MEDIUM));
+            a.completeChore("CompletedChore");
 
             JsonWriter writer = new JsonWriter("./data/testReaderGeneralChoreTracker.json");
             writer.open();

@@ -68,15 +68,10 @@ public class JsonReader {
     // MODIFIES: ct
     // EFFECTS: parses Chore from JSON object and adds it to ChoreTracker
     private void addChoresToComplete(ChoreTracker ct, JSONObject jsonObject) {
-        ArrayList<Chore> choreList = new ArrayList<>();
 
         Chore.Difficulty difficulty = Chore.Difficulty.valueOf(jsonObject.getString("difficulty"));
         String choreName = jsonObject.getString("taskName");
-        Boolean isCompleted = jsonObject.getBoolean("isCompleted?");
         Chore c = new Chore(choreName, difficulty);
-        if (isCompleted) {
-            c.completeChore();
-        }
         ct.addChoreToComplete(c);
     }
 
