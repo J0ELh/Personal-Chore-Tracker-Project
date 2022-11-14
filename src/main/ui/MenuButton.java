@@ -15,14 +15,15 @@ public class MenuButton extends JButton {
 
 
 
-    //EFFECTS creates a new button with required name and adds to parent
-    public MenuButton(String name, JComponent parent) {
+    //EFFECTS creates a new JButton with required name and adds to parent
+    public MenuButton(String name) {
+        super(buttonNumber + ":  " + name);
         currentButtonNumber = buttonNumber;
         buttonNumber++;
         this.name = currentButtonNumber + ":  " + name;
         setupButton();
-        addToParent(parent);
     }
+
 
     private void setupButton() {
         button = new JButton(name);
@@ -30,10 +31,6 @@ public class MenuButton extends JButton {
         button.setBorderPainted(true);
         button.setFocusPainted(true);
         button.setContentAreaFilled(true);
-    }
-
-    private void addToParent(JComponent parent) {
-        parent.add(button);
     }
 
     public void toggleVisibility() {
