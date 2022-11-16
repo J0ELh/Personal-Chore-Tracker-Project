@@ -33,10 +33,6 @@ public class MenuButton extends JButton {
         button.setContentAreaFilled(true);
     }
 
-    public void toggleVisibility() {
-        button.setVisible(!isActive);
-    }
-
     public JButton getButton() {
         return button;
     }
