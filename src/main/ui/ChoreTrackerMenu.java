@@ -564,7 +564,8 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     }
 
 
-
+    //MODIFIES this, ChoreTracker, Chore, Person
+    //EFFECTS handles all button inputs in the UI
     @Override
     @SuppressWarnings("methodlength")
     //Suppressing warning because menu actions should be handled in the same place.
