@@ -30,3 +30,35 @@ also **reward those** who always complete their chores by giving them easier wor
 - As a user, I want to be able to see who still hasn't completed their chores
 - As a user, I want to be able to save my current chore tracker state to a file
 - As a user, I want to be able to be able to load my chore tracker state from file 
+
+## Instructions for Grader
+
+- You can generate the first required event related 
+to adding Xs to a Y by adding a Chore to the Chore 
+Tracker. To do this, simply click "Add Chore", then 
+enter the name of the chore you want to complete and
+click "Add." Then, select a difficulty for the chore 
+by entering 0, 1, or 2, which stand for "easy," 
+"medium," and "hard" accordingly. Hit "Set Difficulty" to 
+finish adding the Chore to the Chore Tracker. 
+- You can generate the second required event related to adding Xs to a Y by 
+adding a Member to the Chore Tracker. To do this,
+simply click "Add Member," enter the name, then hit "Add."
+- You can locate my visual component by loading up the program. I show a splash screen
+with an "animated" loading statement. Essentially, it's just a picture with text to simulate
+a loading screen.
+- You can save the state of my application by clicking "Save Current Chore Tracker State"
+- You can reload the state of my application by clicking "Load Previous Chore Tracker State"
+- **BONUS**
+  - You can view who hasn't completed their chores by hitting the 4th option of
+  the menu. If you click on a specific person, then a pop-up appears with all
+  their uncompleted chores.
+
+- **ALTERNATIVELY** you can also do the following actions related to X's and Y's
+  - Click "Randomly Assign Chores" to assign all chores that are still
+  to be assigned randomly to different members
+  - Click "Complete Chore" and enter the name of someone who's chore you want to complete.
+  Enter a name from the list of people that pops up on the right panel.
+In the next panel, simply enter the chore you want to complete of that person, then
+hit "Complete." This will also remove the chore AND/OR the name 
+  of that person from the list of members with chore to complete (Option 4)

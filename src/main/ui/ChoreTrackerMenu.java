@@ -1,12 +1,14 @@
 package ui;
 
 import model.ChoreTracker;
-import model.Person;
 import persistance.JsonReader;
 import persistance.JsonWriter;
+import ui.buttonhandlers.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,12 +27,9 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-
-//    public static final int WIDTH = 2560;
-//    public static final int HEIGHT = 1440;
     public static final int WIDTH = 2560 / 3;
     public static final int HEIGHT = 1440 / 3;
-    private static final int LOADING_TIME = 200;
+    private static final int LOADING_TIME = 600;
     private JPanel screenArea;
     private JPanel leftPlaceHolder;
     private JPanel rightPlaceHolder;
@@ -54,11 +53,11 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     private InteractionButton interactionButton;
 
     private String currentChoreName;
-    private int currentDifficulty;
     private String personToComplete;
     private String choreToComplete;
 
-    //EFFECTS initializes scanner and ChoreTracker objects, JSON reader & writer, and launches console-based program
+    //MODIFIES this
+    //EFFECTS initializes scanner and ChoreTracker object, JSON reader & writer, and launches GUI
     public ChoreTrackerMenu() {
         super("Chore Tracker");
 
@@ -72,45 +71,41 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
 
     //MODIFIES this
     //EFFECTS draws a JFrame window for the ChoreTracker in which the whole application will be run
-    // and sets up SPLASH SCREEN and menu
+    //First, display's splashscreen, then displays the menu in which the program is run
     //This method has been inspired by the SimpleDrawingEditor from our 210 course
     private void setupGraphics() {
+        //sets root as the frame of the whole application
         root.setLayout(new GridBagLayout());
         rootConstraints = new GridBagConstraints();
         rootConstraints.gridx = 0;
         rootConstraints.gridy = 0;
-//        rootConstraints.fill = GridBagConstraints.BOTH;
         root.setResizable(false);
         root.setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        showSplashScreen();
         root.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         root.setLocationRelativeTo(null);
         root.setVisible(true);
-        try {
-            for (int i = 0; i < 3; i++) {
-                Thread.sleep(LOADING_TIME);
-                splashText.setText(splashText.getText() + ".");
-            }
-            Thread.sleep(LOADING_TIME);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        showSplashScreen();
         root.getContentPane().removeAll();
         setupScreenArea();
         setupInteractionFields();
         root.revalidate();
         root.repaint();
-
     }
 
+
+
+
+    //MODIFIES this, PromptField, InteractionButton
+    //EFFECTS sets up the button and fields that are used for interaction
     private void setupInteractionFields() {
         promptField = new PromptField("Prompt");
         inputArea = new JTextField("Get input");
         interactionButton = new InteractionButton("Do task");
         interactionButton.setBackground(Color.WHITE);
-
     }
 
+    //MODIFIES this
+    //EFFECTS displays a splash screen composed of an image and a text that updates 3 times.
     private void showSplashScreen() {
         splashScreen = new JPanel(new GridBagLayout());
         GridBagConstraints panelConstraint = new GridBagConstraints();
@@ -130,17 +125,31 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        panelConstraint.fill = GridBagConstraints.VERTICAL;
         panelConstraint.gridy = 2;
         panelConstraint.gridheight = 1;
-//        panelConstraint.fill = GridBagConstraints.HORIZONTAL;
 
         splashScreen.add(splashPicture, panelConstraint);
         root.add(splashScreen);
-
+        updateSplashScreen();
     }
 
+    //MODIFIES this
+    //EFFECTS updates the loading text of the splash screen
+    private void updateSplashScreen() {
+        try {
+            for (int i = 0; i < 3; i++) {
+                Thread.sleep(LOADING_TIME);
+                splashText.setText(splashText.getText() + ".");
+            }
+            Thread.sleep(LOADING_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //MODIFIES this
+    //EFFECTS sets up the JPanel that holds all other components of the application
     private void setupScreenArea() {
         screenArea = new JPanel(new GridBagLayout());
         GridBagConstraints screenAreaConstraints = new GridBagConstraints();
@@ -163,7 +172,10 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         root.add(screenArea, rootConstraints);
     }
 
-    private void setScreenArea(Component a, Component b) {
+    //MODIFIES this
+    //sets updates the screen area putting component a onto the left side and component b
+    // onto the right side of the screen
+    public void setScreenArea(Component a, Component b) {
         root.getContentPane().removeAll();
         screenArea.removeAll();
         GridBagConstraints screenConstraints = new GridBagConstraints();
@@ -189,7 +201,8 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     }
 
     //MODIFIES this
-    //Draws a menu on the screen of the JPanel
+    //EFFECTS draws a menu on the screen of the JPanel and sets up the
+    //actionlisteners of the buttons
     private void drawMenu() {
         menuArea = new JPanel();
         GridLayout menuLayout = new GridLayout(0,1);
@@ -204,85 +217,79 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         menuArea.add(header, BorderLayout.CENTER);
 
         createMenuButtons();
-
-
-        addMemberButton.getButton().setActionCommand(addMemberButton.getName());
+        setupButtonHandling();
         addMemberButton.setBackground(Color.WHITE);
-        addMemberButton.addActionListener(this);
-//        addMemberButton.setMargin(new Insets(50, 5, 5, 5));
-
-
-        addChoreButton.getButton().setActionCommand(addChoreButton.getName());
         addChoreButton.setBackground(Color.WHITE);
-        addChoreButton.addActionListener(this);
-//        addChoreButton.setMargin(new Insets(1, 1, 1, 1));
-
-        completeChoreButton.getButton().setActionCommand(completeChoreButton.getName());
         completeChoreButton.setBackground(Color.WHITE);
-        completeChoreButton.addActionListener(this);
-//        completeChoreButton.setMargin(new Insets(1, 1, 1, 1));
-
-        viewUncompletedButton.getButton().setActionCommand(viewUncompletedButton.getName());
         viewUncompletedButton.setBackground(Color.WHITE);
-        viewUncompletedButton.addActionListener(this);
-//        viewUncompletedButton.setMargin(new Insets(1, 1, 1, 1));
-
-        assignRandomlyButton.getButton().setActionCommand(assignRandomlyButton.getName());
         assignRandomlyButton.setBackground(Color.WHITE);
-        assignRandomlyButton.addActionListener(this);
-//        assignRandomlyButton.setMargin(new Insets(1, 1, 1, 1));
-
-        saveCurrentStateButton.getButton().setActionCommand(saveCurrentStateButton.getName());
         saveCurrentStateButton.setBackground(Color.WHITE);
-        saveCurrentStateButton.addActionListener(this);
-//        saveCurrentStateButton.setMargin(new Insets(1, 1, 1, 1));
-
-        loadPreviousStateButton.getButton().setActionCommand(loadPreviousStateButton.getName());
         loadPreviousStateButton.setBackground(Color.WHITE);
-        loadPreviousStateButton.addActionListener(this);
-//        loadPreviousStateButton.setMargin(new Insets(1, 1, 1, 1));
-
-        exitButton.getButton().setActionCommand(exitButton.getName());
         exitButton.setBackground(Color.red);
-        exitButton.addActionListener(this);
-//        exitButton.setMargin(new Insets(1, 1, 1, 1));
-
 
     }
 
+    //MODIFIES this
+    //EFFECTS hooks up menu buttons to the listeners
+    private void setupButtonHandling() {
+        addMemberButton.getButton().setActionCommand(addMemberButton.getName());
+        addMemberButton.addActionListener(this);
+
+        addChoreButton.getButton().setActionCommand(addChoreButton.getName());
+        addChoreButton.addActionListener(this);
+
+        completeChoreButton.getButton().setActionCommand(completeChoreButton.getName());
+        completeChoreButton.addActionListener(this);
+
+        viewUncompletedButton.getButton().setActionCommand(viewUncompletedButton.getName());
+        viewUncompletedButton.addActionListener(this);
+
+        assignRandomlyButton.getButton().setActionCommand(assignRandomlyButton.getName());
+        assignRandomlyButton.addActionListener(this);
+
+        saveCurrentStateButton.getButton().setActionCommand(saveCurrentStateButton.getName());
+        saveCurrentStateButton.addActionListener(this);
+
+        loadPreviousStateButton.getButton().setActionCommand(loadPreviousStateButton.getName());
+        loadPreviousStateButton.addActionListener(this);
+
+        exitButton.getButton().setActionCommand(exitButton.getName());
+        exitButton.addActionListener(this);
+    }
+
+    //MODIFIES this, MenuButton
+    //EFFECTS creates new MenuButtons for the menu and adds them to the menu JPanel
     private void createMenuButtons() {
         addMemberButton = new MenuButton("Add Member");
         menuArea.add(addMemberButton);
-//        menuArea.add(addMemberButton, menuConstraints);
-//        menuConstraints.gridy = 1;
+
         addChoreButton = new MenuButton("Add Chore");
         menuArea.add(addChoreButton);
-//        menuArea.add(addChoreButton, menuConstraints);
-//        menuConstraints.gridy = 2;
+
         completeChoreButton = new MenuButton("Complete Chore");
         menuArea.add(completeChoreButton);
-//        menuArea.add(completeChoreButton, menuConstraints);
-//        menuConstraints.gridy = 3;
+
         viewUncompletedButton = new MenuButton("View Members with Uncompleted Chores");
         menuArea.add(viewUncompletedButton);
-//        menuArea.add(viewUncompletedButton, menuConstraints);
-//        menuConstraints.gridy = 4;
+
         assignRandomlyButton = new MenuButton("Randomly Assign Chores");
         menuArea.add(assignRandomlyButton);
-//        menuArea.add(assignRandomlyButton, menuConstraints);
-//        menuConstraints.gridy = 5;
+
         saveCurrentStateButton = new MenuButton("Save Current Chore Tracker State");
         menuArea.add(saveCurrentStateButton);
-//        menuArea.add(saveCurrentStateButton, menuConstraints);
-//        menuConstraints.gridy = 6;
+
         loadPreviousStateButton = new MenuButton("Load Previous Chore Tracker State");
         menuArea.add(loadPreviousStateButton);
-//        menuArea.add(loadPreviousStateButton, menuConstraints);
-//        menuConstraints.gridy = 7;
+
         exitButton = new MenuButton("Exit");
         menuArea.add(exitButton);
-//        menuArea.add(exitButton, menuConstraints);
 
+        addButtonsToList();
+    }
+
+    //MODIFIES this, MenuButton
+    //EFEFCTS adds menubuttons to a list
+    private void addButtonsToList() {
         listOfMenuButtons.add(addMemberButton);
         listOfMenuButtons.add(addChoreButton);
         listOfMenuButtons.add(viewUncompletedButton);
@@ -294,13 +301,10 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     }
 
 
-
-
-
-    //REQUIRES input within the options (1, 2, 3, 4, 5)
-    //MODIFIES this, Chore, Person
+    //REQUIRES input within the options (1, 2, 3, 4, 5, 6, 7, 8)
+    //MODIFIES this, Chore, Person, all classes in "buttonhandlers" package
     //EFFECTS executes menu choices
-    private void processCommand(int choice) {
+    public void processCommand(int choice) {
 
 
         if (choice == 1) {
@@ -330,8 +334,8 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: loads ChoreTracker from file
+    // MODIFIES: this, ChoreTracker, Chore, Person
+    // EFFECTS: loads ChoreTracker from file and sets up right panel appropriately
     private void loadState() {
 
         RightInteractionPanel loadStatePanel = new RightInteractionPanel(new GridBagLayout());
@@ -354,7 +358,8 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         setScreenArea(menuArea, loadStatePanel);
     }
 
-    // EFFECTS: saves the ChoreTracker to file
+    //MODIFIES this, ChoreTracker, Chore, Person
+    //EFFECTS saves the ChoreTracker to file and sets up right panel appropriately
     private void saveState() {
         RightInteractionPanel saveStatePanel = new RightInteractionPanel(new GridBagLayout());
 
@@ -378,7 +383,7 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     }
 
     //MODIFIES ChoreTracker
-    //EFFECTS assigns chores to complete semi-randomly to members
+    //EFFECTS assigns chores to complete semi-randomly to members and sets up right panel appropriately
     public void randomlyAssignChores() {
         ct.assignChoresRandomly();
         RightInteractionPanel assignChoresPanel = new RightInteractionPanel(new GridBagLayout());
@@ -394,63 +399,87 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         setScreenArea(menuArea, assignChoresPanel);
     }
 
-
+    //MODIFIES ChoreTracker, this
     //EFFECTS prints a list of members who haven't completed all their chores to the console
+    @SuppressWarnings("methodlength") //using suppressWarnings because this method is complex
+    //but it doesn't make sense to decompose it
     private void viewMembersWithUncompletedChores() {
-
-        RightInteractionPanel addMemberPanel = new RightInteractionPanel(new GridBagLayout());
-        addMemberPanel.setMinimumSize(new Dimension((int)(WIDTH * 0.6), (int)(HEIGHT * 0.8)));
-        GridBagConstraints addPanelConstraints = new GridBagConstraints();
-        addPanelConstraints.gridx = 0;
-        addPanelConstraints.gridy = 0;
-        addPanelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        promptField.setText("List of people who haven't completed all their chores\n\n");
-        ArrayList<JTextArea> listOfChoresToComplete = new ArrayList<>();
+        //getting members with uncompleted chores
+        int numOfPeopleWithUncompletedChores = 0;
+        ArrayList<String> listOfNames = new ArrayList<>();
         for (int i = 0; i < ct.getListOfMembers().size(); i++) {
             if (ct.getListOfMembers().get(i).getChoreSum() > 0) {
-                listOfChoresToComplete.add(new JTextArea(ct.getListOfMembers().get(i).listChores()));
+                numOfPeopleWithUncompletedChores++;
+                listOfNames.add(ct.getListOfMembers().get(i).getName());
             }
         }
-        JTextArea current = null;
-        addMemberPanel.add(promptField, addPanelConstraints);
-        for (int i = 0; i < ct.getListOfMembers().size(); i++) {
-            addPanelConstraints.gridy = addPanelConstraints.gridy + 1;
-            current = listOfChoresToComplete.get(i);
-            addMemberPanel.add(current, addPanelConstraints);
+
+//        if (numOfPeopleWithUncompletedChores == 0) {
+//            inputArea.setText("No members to show.");
+//            inputArea.setEditable(false);
+//            interactionButton = new InteractionButton();
+//            interactionButton.setText("No Action Possible");
+//            interactionButton.setEnabled(false);
+//            // TO BE COMPLETED. SHOW A SPECIFIC SCREEN WHEN THERE ARE NO PEOPLE TO SHOW
+//        }
+
+
+        //setting up JTable
+        String[] columnName = { "Select Name for More Details: "};
+        Object[][] data = new Object[listOfNames.size()][1];
+        for (int i = 0; i < listOfNames.size(); i++) {
+            data[i][0] = listOfNames.get(i);
         }
-        if (current == null ) {
-            inputArea.setText("No members to show.");
-            inputArea.setEditable(false);
-            interactionButton = new InteractionButton();
-            interactionButton.setText("No Action Possible");
-            interactionButton.setEnabled(false);
-
-            addMemberPanel.setupRightPanel(promptField, inputArea, interactionButton);
-        }
 
 
-        setScreenArea(menuArea, addMemberPanel);
+        JTable table = new JTable(data, columnName) {
+            //THIS FOLLOWING CODE IS STRONGLY INSPIRED BY Rahul Borkar's answer at
+            //https://stackoverflow.com/questions/9919230/disable-user-edit-in-jtable
+            //The code overrides the isCellEditable function of JTable to disable
+            //editing in all fields of the table
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        table.setAlignmentX(JTable.CENTER_ALIGNMENT);
+        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        table.setFillsViewportHeight(true);
+
+        //Following code strongly inspired by ProgrammingWizards TV
+        //at https://www.youtube.com/watch?v=5dK4dA39INk
+        //The code handels displaying the list of chores to complete for each person once they are selected
+        ListSelectionModel selectionModel = table.getSelectionModel();
+        selectionModel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!selectionModel.isSelectionEmpty()) {
+                    String output = ct.getListOfMembers().get(selectionModel.getMinSelectionIndex()).listChores();
+                    JOptionPane.showMessageDialog(new JTextField("More Information: "), output);
+                }
+            }
+        });
+
+
+        setScreenArea(menuArea, scrollPane);
     }
 
     //MODIFIES ChoreTracker, Person, Chore
-    //EFFECTS allows user to make chore as completed through console
+    //EFFECTS allows user to mark chore as completed through GUI
     private void completeChore() {
 
         if (ct.getMembersWithUncompletedChores() == null || ct.getMembersWithUncompletedChores() == "") {
-            RightInteractionPanel allChoresCompleted = new RightInteractionPanel(new GridBagLayout());
-            promptField.setText("Everyone has completed their chores!");
-            inputArea.setEditable(false);
-            inputArea.setText("Select Different Option");
-            interactionButton.setEnabled(false);
-            allChoresCompleted.setupRightPanel(promptField, inputArea, interactionButton);
-            toggleMenuClickable(true);
-            setScreenArea(menuArea, allChoresCompleted);
-
+            //displays a window showing that no chores can be completed at this state
+            displayNoChoresToComplete();
             return;
         }
 
         RightInteractionPanel completeChorePanel = new RightInteractionPanel(new GridBagLayout());
-//        promptField.setText("Give the following, please select a person: ");
         promptField.setText("Please select a person: ");
         JTextArea listOfPeople = new JTextArea();
         for (int i = 0; i < ct.getListOfMembers().size(); i++) {
@@ -466,9 +495,24 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         setScreenArea(menuArea, completeChorePanel);
     }
 
-    private void selectChoreOfPerson() {
+    //MODIFIES this
+    //EFFECTS displays that everyone has completed their chores
+    private void displayNoChoresToComplete() {
+        RightInteractionPanel allChoresCompleted = new RightInteractionPanel(new GridBagLayout());
+        promptField.setText("Everyone has completed their chores!");
+        inputArea.setEditable(false);
+        inputArea.setText("Select Different Option");
+        interactionButton.setEnabled(false);
+        allChoresCompleted.setupRightPanel(promptField, inputArea, interactionButton);
+        toggleMenuClickable(true);
+        setScreenArea(menuArea, allChoresCompleted);
+    }
+
+    //MODIFIES this
+    //EFFECTS displays options to complete a chore entered by the user
+    public void selectChoreOfPerson() {
         RightInteractionPanel completeChorePanel = new RightInteractionPanel(new GridBagLayout());
-        promptField.setText("Which chore do you want to complete?\n\n");
+        promptField.setText("Which chore was completed?\n\n");
         for (int i = 0; i < ct.getListOfMembers().size(); i++) {
             if (ct.getListOfMembers().get(i).getName().equals(personToComplete)) {
                 ct.getListOfMembers().get(i).listChores();
@@ -486,7 +530,7 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     }
 
     //MODIFIES ChoreTracker
-    //EFFECTS adds member to choreTracker by console input
+    //EFFECTS allows user to input member to add to chore tracker
     private void addMember() {
         RightInteractionPanel addMemberPanel = new RightInteractionPanel(new GridBagLayout());
 
@@ -503,8 +547,8 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
 
     }
 
-    //MODIFIES ChoreTracker
-    //EFFECTS allows to add new chore through console
+    //MODIFIES this
+    //EFFECTS allows new chore name to be entered to be completed
     private void addNewChore() {
 
         RightInteractionPanel addChorePanel = new RightInteractionPanel(new GridBagLayout());
@@ -519,88 +563,47 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         setScreenArea(menuArea, addChorePanel);
     }
 
-    private void setAddedChoreDifficulty() {
-        RightInteractionPanel addChoreDifficultyPanel = new RightInteractionPanel(new GridBagLayout());
-        promptField.setText("Please enter the difficulty:  ");
-        inputArea.setText("0 = easy, 1 = medium, 2 = hard");
-        interactionButton = new InteractionButton();
-        interactionButton.setText("Set Difficulty");
-        interactionButton.setActionCommand("setDifficultyOfAdded");
-        interactionButton.addActionListener(this);
-        addChoreDifficultyPanel.setupRightPanel(promptField, inputArea, interactionButton);
-        addChoreDifficultyPanel.setVisible(true);
 
-        setScreenArea(menuArea, addChoreDifficultyPanel);
-    }
 
     @Override
     @SuppressWarnings("methodlength")
-    //Suppressing warning because menu actions handled in the same place.
+    //Suppressing warning because menu actions should be handled in the same place.
+    //I already have shortened the handlers using different classes
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("1:  Add Member")) {
-            inputArea.setEditable(true);
-            toggleMenuClickable(false);
-            interactionButton.setEnabled(true);
-            processCommand(1);
+            new AddMemberEvent(this, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals("2:  Add Chore")) {
-            inputArea.setEditable(true);
-            toggleMenuClickable(false);
-            interactionButton.setEnabled(true);
-            processCommand(2);
+            new AddChoreEvent(this, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals("3:  Complete Chore")) {
-            inputArea.setEditable(true);
-            toggleMenuClickable(false);
-            interactionButton.setEnabled(true);
-
-            processCommand(3);
+            new CompleteChoreEvent(this, menuArea, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals("4:  View Members with Uncompleted Chores")) {
-            toggleMenuClickable(true);
-            interactionButton.setEnabled(true);
-            processCommand(4);
+            new ViewUncompletedChoresEvent(this, menuArea, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals("5:  Randomly Assign Chores")) {
-            processCommand(5);
+            new RandomlyAssignChoresEvent(this);
         } else if (e.getActionCommand().equals("6:  Save Current Chore Tracker State")) {
-            processCommand(6);
+            new SaveDataEvent(this);
         } else if (e.getActionCommand().equals("7:  Load Previous Chore Tracker State")) {
-            processCommand(7);
+            new LoadDataEvent(this);
         } else if (e.getActionCommand().equals("8:  Exit")) {
-            processCommand(8);
+            new ExitEvent(this);
         } else if (e.getActionCommand().equals("addPerson")) {
-            ct.addPerson(new Person(inputArea.getText()));
-            promptField.setText(inputArea.getText() + " added successfully.");
-            interactionButton.setEnabled(false);
-            toggleMenuClickable(true);
-            inputArea.setEditable(false);
+            new AddPersonEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals("addChore")) {
-            currentChoreName = inputArea.getText();
-            setAddedChoreDifficulty();
+            new ProcessChoreEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals("setDifficultyOfAdded")) {
-            currentDifficulty = Integer.parseInt(inputArea.getText());
-            ct.addChoreWithDifficulty(currentChoreName, currentDifficulty);
-            promptField.setText(currentChoreName + " added successfully.");
-            toggleMenuClickable(true);
-            interactionButton.setEnabled(false);
-            inputArea.setEditable(false);
+            new SetDifficultyEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals(("completeChoreOfPerson"))) {
-            interactionButton.setEnabled(true);
-            personToComplete = inputArea.getText();
-            selectChoreOfPerson();
+            new SelectChoreEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals(("completeChore"))) {
-            choreToComplete = inputArea.getText();
-            ct.completeChoreOption(personToComplete, choreToComplete);
-            promptField.setText(personToComplete + " completed " + choreToComplete + " successfully.");
-            toggleMenuClickable(true);
-            interactionButton.setEnabled(false);
-            inputArea.setEditable(false);
+            new FinishChoreEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
         }
-
-
 
     }
 
-    private void toggleMenuClickable(Boolean enabled) {
-        //NOT WORKING PROPERLY
+    //MODIFIES this
+    //EFFECTS enables or disables menu buttons to limit what the user can do
+    public void toggleMenuClickable(Boolean enabled) {
         for (JButton button: listOfMenuButtons) {
             if (button.getName().equals("8:  Exit")) {
                 continue;
@@ -611,4 +614,62 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     }
 
 
+    //GETTERS AND SETTERS
+    public InteractionButton getInteractionButton() {
+        return interactionButton;
+    }
+
+    public void setCurrentChoreName(String currentChoreName) {
+        this.currentChoreName = currentChoreName;
+    }
+
+    public String getCurrentChoreName() {
+        return currentChoreName;
+    }
+
+    public void setPersonToComplete(String person) {
+        this.personToComplete = person;
+    }
+
+    public String getPersonToComplete() {
+        return personToComplete;
+    }
+
+    public void setChoreToComplete(String choreName) {
+        this.choreToComplete = choreName;
+    }
+
+    public String getChoreToComplete() {
+        return choreToComplete;
+    }
+
+    public PromptField getPromptField() {
+        return promptField;
+    }
+
+    public JTextField getInputField() {
+        return inputArea;
+    }
+
+    public void setInteractionButton(InteractionButton b) {
+        this.interactionButton = b;
+    }
+
+    public JPanel getMenuArea() {
+        return menuArea;
+    }
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+

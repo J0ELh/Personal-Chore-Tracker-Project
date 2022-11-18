@@ -1,10 +1,8 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+//MenuButton is a JButton with desired formatting
 public class MenuButton extends JButton {
     private static int buttonNumber = 1;
 
@@ -14,8 +12,8 @@ public class MenuButton extends JButton {
     private int currentButtonNumber;
 
 
-
-    //EFFECTS creates a new JButton with required name and adds to parent
+    //MODIFIES this
+    //EFFECTS creates a new JButton with required name
     public MenuButton(String name) {
         super(buttonNumber + ":  " + name);
         currentButtonNumber = buttonNumber;
@@ -25,14 +23,16 @@ public class MenuButton extends JButton {
     }
 
 
+    //MODIFIES this
+    //EFFECTS sets format of button
     private void setupButton() {
         button = new JButton(name);
-//        button.setLayout(); STILL NEED TO MAKE BUTTONS ALIGNED ON LEFT OR LOOK BETTER
         button.setBorderPainted(true);
         button.setFocusPainted(true);
         button.setContentAreaFilled(true);
     }
 
+    //getters
     public JButton getButton() {
         return button;
     }
