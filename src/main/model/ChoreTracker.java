@@ -187,10 +187,12 @@ public class ChoreTracker implements Writable {
     }
 
     //EFFECTS prints events to console
-    public void finishExecuting() {
+    public String finishExecuting() {
+        String output = "";
         for (Event event : EventLog.getInstance()) {
-            System.out.println(event.toString());
+            output += (event.toString()) + "\n";
         }
         //EventLog.getInstance().iterator().forEachRemaining(x -> System.out.println(x.toString()));
+        return output;
     }
 }

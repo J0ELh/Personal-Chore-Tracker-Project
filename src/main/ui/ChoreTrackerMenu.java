@@ -330,7 +330,7 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
             loadState();
         } else if (choice == 8) {
             //exit program
-            ct.finishExecuting();
+            System.out.println(ct.finishExecuting());;
             exit(0);
         }
     }

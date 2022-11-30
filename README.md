@@ -90,5 +90,5 @@ wash car assigned to Eric\
 Tue Nov 29 12:06:19 PST 2022\
 chore3 completed by Eric\
 Tue Nov 29 12:06:21 PST 2022\
-state saved\
+state saved
 

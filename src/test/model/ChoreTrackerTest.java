@@ -65,7 +65,7 @@ public class ChoreTrackerTest {
         ct.assignChoresRandomly();
         ct.addChoreWithDifficulty("testEasyChore", 0);
         ct.addChoreWithDifficulty("testHardChore", 2);
-        assertEquals(3, jake.getChoreSum());
+        assertEquals(2, jake.getChoreSum());
     }
 
     @Test
