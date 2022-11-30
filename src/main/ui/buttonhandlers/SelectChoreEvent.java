@@ -12,8 +12,7 @@ public class SelectChoreEvent {
 
     //MODIFIES this, ChoreTrackerMenu
     //EFFECTS sets up JPanel so that user can select which chore of given person to complete
-    public SelectChoreEvent(ChoreTrackerMenu choreTrackerMenu, ChoreTracker ct, JPanel menuArea, JTextField prompt,
-                             JTextField inputArea, InteractionButton button) {
+    public SelectChoreEvent(ChoreTrackerMenu choreTrackerMenu, JTextField inputArea) {
         choreTrackerMenu.getInteractionButton().setEnabled(true);
         choreTrackerMenu.setPersonToComplete(inputArea.getText());
         choreTrackerMenu.selectChoreOfPerson();

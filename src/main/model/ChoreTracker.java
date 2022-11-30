@@ -51,13 +51,14 @@ public class ChoreTracker implements Writable {
         }
     }
 
+    //REQUIRES Person part of chore tracker and chore assigned to that Person
     //MODIFIES this, Person, Chore
     //EFFECTS completes chores of people specified by user. If chore or user isn't found, does nothing
     public void completeChoreOption(String person, String choreToComplete) {
-
         for (int i = 0; i < listOfMembers.size(); i++) {
             if (listOfMembers.get(i).getName().equals(person)) {
                 listOfMembers.get(i).completeChore(choreToComplete);
+                EventLog.getInstance().logEvent(new Event(choreToComplete + " completed by " + person));
                 break;
             }
         }
@@ -67,12 +68,15 @@ public class ChoreTracker implements Writable {
     //MODIFIES this
     //adds a new person to the list of members of the household
     public void addPerson(Person p) {
+        EventLog.getInstance().logEvent(new Event("Person: " + p.getName() + " added to chore tracker"));
         listOfMembers.add(p);
     }
 
     //MODIFIES this
     //adds a new Chore to the list of chores to complete
     public void addChoreToComplete(Chore c) {
+        EventLog.getInstance().logEvent(new Event(c.getDifficulty() + " chore (" + c.getChoreName()
+                + ") added to chore tracker"));
         listOfChoresToComplete.add(c);
     }
 
@@ -83,6 +87,7 @@ public class ChoreTracker implements Writable {
     //randomly but in the short-term some people may receive more chores than others
     @SuppressWarnings("methodlength")
     public void assignChoresRandomly() {
+        EventLog.getInstance().logEvent(new Event("Outstanding chores randomly assigned to different people"));
         //randomize people in arraylist to prevent later people from getting fewer tasks
         //and to make sure people get different chores
         Collections.shuffle(listOfMembers);
@@ -100,6 +105,8 @@ public class ChoreTracker implements Writable {
                 Chore tempChore = listOfChoresToComplete.get(choreIndex);
                 if (listOfMembers.get(memberIndex).getChoreSum() + tempChore.getDifficultyByInt()  <= upperBound) {
                     listOfMembers.get(memberIndex).assignChore(tempChore);
+                    EventLog.getInstance().logEvent(new Event(tempChore.getChoreName() + " assigned to "
+                            + listOfMembers.get(memberIndex).getName()));
                     listOfChoresToComplete.remove(choreIndex);
                     choreIndex--; //lower i since we removed one element
                 } else { //to avoid infinite loop, dump chores on remaining people
@@ -108,6 +115,10 @@ public class ChoreTracker implements Writable {
                             break;
                         }
                         listOfMembers.get(j).assignChore(listOfChoresToComplete.get(choreIndex));
+                        EventLog.getInstance().logEvent(
+                                new Event(listOfChoresToComplete.get(choreIndex).getChoreName()
+                                        + " assigned to "
+                                + listOfMembers.get(j).getName()));
                         listOfChoresToComplete.remove(choreIndex);
                         choreIndex--;
                     }
@@ -146,13 +157,14 @@ public class ChoreTracker implements Writable {
 
     @Override
     public JSONObject toJson() {
+        EventLog.getInstance().logEvent(new Event("state saved"));
         JSONObject json = new JSONObject();
         json.put("listOfChoresToComplete", listOfChoresToJason());
         json.put("listOfMembers", listOfMembersToJason());
         return json;
     }
 
-    // EFFECTS: returns chores in this workroom as a JSON array
+    // EFFECTS: returns chores in this tracker as a JSON array
     private JSONArray listOfChoresToJason() {
         JSONArray jsonArray = new JSONArray();
 
@@ -163,7 +175,7 @@ public class ChoreTracker implements Writable {
         return jsonArray;
     }
 
-    // EFFECTS: returns chores in this workroom as a JSON array
+    // EFFECTS: returns chores in this tracker as a JSON array
     private JSONArray listOfMembersToJason() {
         JSONArray jsonArray = new JSONArray();
 
@@ -172,5 +184,13 @@ public class ChoreTracker implements Writable {
         }
 
         return jsonArray;
+    }
+
+    //EFFECTS prints events to console
+    public void finishExecuting() {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println(event.toString());
+        }
+        //EventLog.getInstance().iterator().forEachRemaining(x -> System.out.println(x.toString()));
     }
 }

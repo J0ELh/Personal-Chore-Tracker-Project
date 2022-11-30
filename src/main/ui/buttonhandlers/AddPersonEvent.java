@@ -12,11 +12,10 @@ public class AddPersonEvent {
 
     //MODIFIES this, ChoreTrackerMenu
     //EFFECTS adds person to choreTracker, enables menu, disables InteractionButton, adds chore and notifies user
-    public AddPersonEvent(ChoreTrackerMenu choreTrackerMenu, ChoreTracker ct,
-                          JPanel menuArea, JTextField prompt, JTextField inputArea, InteractionButton button) {
+    public AddPersonEvent(ChoreTrackerMenu choreTrackerMenu, ChoreTracker ct, JTextField inputArea) {
         ct.addPerson(new Person(inputArea.getText()));
-        prompt.setText(inputArea.getText() + " added successfully.");
-        button.setEnabled(false);
+        choreTrackerMenu.getPromptField().setText(inputArea.getText() + " added successfully.");
+        choreTrackerMenu.getInteractionButton().setEnabled(false);
         choreTrackerMenu.toggleMenuClickable(true);
         inputArea.setEditable(false);
     }

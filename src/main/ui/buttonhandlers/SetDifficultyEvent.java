@@ -12,9 +12,9 @@ public class SetDifficultyEvent {
 
     //MODIFIES this, ChoreTrackerMenu, ChoreTracker, Chore, Person
     //EFFECTS enables menu, completes chore of selected person, and displays that this has been done to GUI
-    public SetDifficultyEvent(ChoreTrackerMenu choreTrackerMenu, ChoreTracker ct, JPanel menuArea, JTextField prompt,
-                             JTextField inputArea, InteractionButton button) {
-
+    public SetDifficultyEvent(ChoreTrackerMenu choreTrackerMenu, ChoreTracker ct,
+                             JTextField inputArea) {
+        JTextField prompt = choreTrackerMenu.getPromptField();
 
         int currentDifficulty = Integer.parseInt(inputArea.getText());
         ct.addChoreWithDifficulty(choreTrackerMenu.getCurrentChoreName(), currentDifficulty);

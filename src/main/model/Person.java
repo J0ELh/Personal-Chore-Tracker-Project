@@ -96,4 +96,9 @@ public class Person implements Writable {
     public void setChoreList(ArrayList<Chore> choreList) {
         this.assignedChores = choreList;
     }
+
+    //EFFECTS returns the list of chores that the person has assigned to them
+    public List<Chore> getChoreList() {
+        return new ArrayList<Chore>(assignedChores);
+    }
 }

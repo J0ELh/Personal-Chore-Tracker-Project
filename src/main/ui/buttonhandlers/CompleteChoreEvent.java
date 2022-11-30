@@ -12,11 +12,10 @@ public class CompleteChoreEvent {
     //MODIFIES this, ChoreTrackerMenu, ChoreTracker, Chore, Person
     //EFFECTS allows input, disables menu, enables InteractionButton,
     //allowing members to be displayed
-    public CompleteChoreEvent(ChoreTrackerMenu ct, JPanel menuArea, JTextField prompt, JTextField inputArea,
-                              InteractionButton button) {
+    public CompleteChoreEvent(ChoreTrackerMenu ct, JTextField inputArea) {
         inputArea.setEditable(true);
         ct.toggleMenuClickable(false);
-        button.setEnabled(true);
+        ct.getInteractionButton().setEnabled(true);
         ct.processCommand(3);
     }
 }

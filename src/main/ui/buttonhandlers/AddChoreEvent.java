@@ -11,8 +11,7 @@ public class AddChoreEvent {
 
     //MODIFIES this, ChoreTrackerMenu, ChoreTracker, Chore, Person
     //EFFECTS allows input, disables menu, allows InteractionButton, processes adding of chore
-    public AddChoreEvent(ChoreTrackerMenu ct, JTextField prompt, JTextField inputArea,
-                         InteractionButton button) {
+    public AddChoreEvent(ChoreTrackerMenu ct, JTextField inputArea) {
         inputArea.setEditable(true);
         ct.toggleMenuClickable(false);
         ct.getInteractionButton().setEnabled(true);

@@ -12,8 +12,7 @@ public class ViewUncompletedChoresEvent {
     //MODIFIES this, ChoreTrackerMenu
     //EFFECTS shows table of people with uncompleted chores.
     //lets user click on row of choice to see chore that user has to complete
-    public ViewUncompletedChoresEvent(ChoreTrackerMenu ct, JPanel menuArea, JTextField prompt, JTextField inputArea,
-                                      InteractionButton button) {
+    public ViewUncompletedChoresEvent(ChoreTrackerMenu ct) {
         ct.toggleMenuClickable(true);
         ct.getInteractionButton().setEnabled(true);
         ct.processCommand(4);

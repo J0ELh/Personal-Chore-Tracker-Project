@@ -29,7 +29,7 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
 
     public static final int WIDTH = 2560 / 3;
     public static final int HEIGHT = 1440 / 3;
-    private static final int LOADING_TIME = 600;
+    private static final int LOADING_TIME = 700;
     private JPanel screenArea;
     private JPanel leftPlaceHolder;
     private JPanel rightPlaceHolder;
@@ -330,6 +330,7 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
             loadState();
         } else if (choice == 8) {
             //exit program
+            ct.finishExecuting();
             exit(0);
         }
     }
@@ -571,15 +572,18 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     //Suppressing warning because menu actions should be handled in the same place.
     //I already have shortened the handlers using different classes
     public void actionPerformed(ActionEvent e) {
-
+        /**
+         * DON'T NEED TO DRAW DEPENDENCY ARROWS OR ASSOCIATIONS SO NOT HERE BC NOT ASSIGNING TO LOCAL VARIABLE
+         * 
+         */
         if (e.getActionCommand().equals("1:  Add Member")) {
-            new AddMemberEvent(this, promptField, inputArea, interactionButton);
+            new AddMemberEvent(this, inputArea);
         } else if (e.getActionCommand().equals("2:  Add Chore")) {
-            new AddChoreEvent(this, promptField, inputArea, interactionButton);
+            new AddChoreEvent(this, inputArea);
         } else if (e.getActionCommand().equals("3:  Complete Chore")) {
-            new CompleteChoreEvent(this, menuArea, promptField, inputArea, interactionButton);
+            new CompleteChoreEvent(this, inputArea);
         } else if (e.getActionCommand().equals("4:  View Members with Uncompleted Chores")) {
-            new ViewUncompletedChoresEvent(this, menuArea, promptField, inputArea, interactionButton);
+            new ViewUncompletedChoresEvent(this);
         } else if (e.getActionCommand().equals("5:  Randomly Assign Chores")) {
             new RandomlyAssignChoresEvent(this);
         } else if (e.getActionCommand().equals("6:  Save Current Chore Tracker State")) {
@@ -589,15 +593,15 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("8:  Exit")) {
             new ExitEvent(this);
         } else if (e.getActionCommand().equals("addPerson")) {
-            new AddPersonEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
+            new AddPersonEvent(this, ct, inputArea);
         } else if (e.getActionCommand().equals("addChore")) {
             new ProcessChoreEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
         } else if (e.getActionCommand().equals("setDifficultyOfAdded")) {
-            new SetDifficultyEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
+            new SetDifficultyEvent(this, ct, inputArea);
         } else if (e.getActionCommand().equals(("completeChoreOfPerson"))) {
-            new SelectChoreEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
+            new SelectChoreEvent(this, inputArea);
         } else if (e.getActionCommand().equals(("completeChore"))) {
-            new FinishChoreEvent(this, ct, menuArea, promptField, inputArea, interactionButton);
+            new FinishChoreEvent(this, ct, inputArea);
         }
 
     }

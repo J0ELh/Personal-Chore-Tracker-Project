@@ -62,3 +62,33 @@ a loading screen.
 In the next panel, simply enter the chore you want to complete of that person, then
 hit "Complete." This will also remove the chore AND/OR the name 
   of that person from the list of members with chore to complete (Option 4)
+
+
+## Phase 4: Task 2 (Representative Event Log)
+Tue Nov 29 12:05:47 PST 2022\
+Person: Jonathan added to chore tracker\
+Tue Nov 29 12:05:47 PST 2022\
+Person: Bill added to chore tracker\
+Tue Nov 29 12:05:47 PST 2022\
+Person: Barry added to chore tracker\
+Tue Nov 29 12:05:47 PST 2022\
+Person: Joel added to chore tracker\
+Tue Nov 29 12:05:47 PST 2022\
+Person: Jason added to chore tracker\
+Tue Nov 29 12:05:47 PST 2022\
+Person: Jeffrey added to chore tracker\
+Tue Nov 29 12:05:47 PST 2022\
+Person: Eric added to chore tracker\
+Tue Nov 29 12:05:56 PST 2022\
+Person: Jona added to chore tracker\
+Tue Nov 29 12:06:06 PST 2022\
+HARD chore (wash car) added to chore tracker\
+Tue Nov 29 12:06:08 PST 2022\
+Outstanding chores randomly assigned to different people\
+Tue Nov 29 12:06:08 PST 2022\
+wash car assigned to Eric\
+Tue Nov 29 12:06:19 PST 2022\
+chore3 completed by Eric\
+Tue Nov 29 12:06:21 PST 2022\
+state saved\
+
