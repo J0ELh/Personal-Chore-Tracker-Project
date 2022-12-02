@@ -57,7 +57,7 @@ a loading screen.
 - **ALTERNATIVELY** you can also do the following actions related to X's and Y's
   - Click "Randomly Assign Chores" to assign all chores that are still
   to be assigned randomly to different members
-  - Click "Complete Chore" and enter the name of someone who's chore you want to complete.
+  - Click "Complete Chore" and enter the name of someone whose chore you want to complete.
   Enter a name from the list of people that pops up on the right panel.
 In the next panel, simply enter the chore you want to complete of that person, then
 hit "Complete." This will also remove the chore AND/OR the name 
@@ -92,3 +92,21 @@ chore3 completed by Eric\
 Tue Nov 29 12:06:21 PST 2022\
 state saved
 
+## Phase 4: Task 3
+
+If I had more time to work on the project, this is the refactoring I would do:
+
+- Simplify the ui button events and shorten the ChoreTrackerMenu class to improve cohesion
+  - remove the large batch of poorly named event handler classes
+    - this also means getting rid of the inconsistent use of associations and dependencies
+  - instead, create a few menu button handler classes grouped by related button events
+  - pass/access private fields of the ChoreTrackerMenu to be able to change
+  all features **from these classes** instead of calling function back in the ChoreTrackerMenu
+  like I'm doing now
+- Make the RightInteractionPanel easier to understand by writing clearer methods
+and allowing for different cases of inputs (overriding methods)
+  - make InteractionButton, PromptField, and inputArea (a specific JTextArea)
+  part of RightInteractionPanel so that ChoreTrackerMenu doesn't have to deal with
+  controlling that behaviour
+- Renaming Person to something better representing a member of a household or
+dorm room
