@@ -39,8 +39,8 @@ public class FinishChoreEvent {
 
 
         if (nameValid && choreValid) {
-            prompt.setText(choreTrackerMenu.getPersonToComplete() + " completed " + choreTrackerMenu.getChoreToComplete()
-                    + " successfully.");
+            prompt.setText(choreTrackerMenu.getPersonToComplete() + " completed "
+                    + choreTrackerMenu.getChoreToComplete() + " successfully.");
         } else {
             prompt.setText("Either the name or chore were invalid. No chore was completed.");
             prompt.setAutoscrolls(true);
