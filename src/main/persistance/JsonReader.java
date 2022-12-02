@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 //NOTE: ALL OF THIS CODE IS STRONGLY BASED ON THE CODE PROVIDED BY JsonSerializationDemo provided on edx from our UBC
 //CPSC 210 course team.
+
 // Represents a reader that reads the ChoreTracker from JSON data stored in file
 public class JsonReader {
     private String source;
