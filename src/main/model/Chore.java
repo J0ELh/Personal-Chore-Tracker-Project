@@ -2,7 +2,6 @@ package model;
 
 import org.json.JSONObject;
 import persistance.Writable;
-
 //A chore is a task that a Person from the household has to execute and complete. It has a difficulty rating included.
 public class Chore implements Comparable<Chore>, Writable {
 
@@ -14,6 +13,7 @@ public class Chore implements Comparable<Chore>, Writable {
     private final String taskName;
     private Boolean isCompleted = false;
 
+    //test
     //REQUIRES 0 <= difficulty 2
     //EFFECTS initializes new Chore object with given difficulty rating and name
     public Chore(String name, Difficulty difficulty) {
