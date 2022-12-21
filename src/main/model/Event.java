@@ -7,6 +7,7 @@ import java.util.Date;
 /**
  * Represents an alarm system event.
  * THIS CLASS WAS WRITTEN BY 210 COURSE ADMINS
+ * I AM USING THIS CLASS FOR EVENT TRACKING
  */
 public class Event {
     private static final int HASH_CONSTANT = 13;

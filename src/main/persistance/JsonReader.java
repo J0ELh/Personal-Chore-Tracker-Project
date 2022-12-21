@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-//NOTE: ALL OF THIS CODE IS STRONGLY BASED ON THE CODE PROVIDED BY JsonSerializationDemo provided on edx from our UBC
+//NOTE: ALL OF THIS CODE IS INSPIRED BY THE CODE PROVIDED BY JsonSerializationDemo provided on edx from our UBC
 //CPSC 210 course team.
 
 // Represents a reader that reads the ChoreTracker from JSON data stored in file

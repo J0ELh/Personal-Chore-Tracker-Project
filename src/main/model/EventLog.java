@@ -10,6 +10,7 @@ import java.util.Iterator;
  * one EventLog in the system and that the system has global access
  * to the single instance of the EventLog.
  * THIS CLASS WAS WRITTEN BY 210 COURSE ADMINS
+ * I AM USING THIS CLASS FOR EVENT TRACKING
  */
 public class EventLog implements Iterable<Event> {
     /** the only EventLog in the system (Singleton Design Pattern) */

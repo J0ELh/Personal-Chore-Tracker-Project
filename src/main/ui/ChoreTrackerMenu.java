@@ -227,6 +227,8 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
         loadPreviousStateButton.setBackground(Color.WHITE);
         exitButton.setBackground(Color.red);
 
+        saveCurrentStateButton.setEnabled(false);
+        //disable save button when program launches
     }
 
     //MODIFIES this
@@ -386,9 +388,13 @@ public class ChoreTrackerMenu extends JFrame implements ActionListener {
     //MODIFIES ChoreTracker
     //EFFECTS assigns chores to complete semi-randomly to members and sets up right panel appropriately
     public void randomlyAssignChores() {
-        ct.assignChoresRandomly();
         RightInteractionPanel assignChoresPanel = new RightInteractionPanel(new GridBagLayout());
-        promptField.setText("All Chores Randomly Assigned!\n\n");
+        if (ct.getListOfMembers().size() > 0)  {
+            ct.assignChoresRandomly();
+            promptField.setText("All Chores Randomly Assigned!\n\n");
+        } else {
+            promptField.setText("Cannot assign chores: No members");
+        }
         inputArea.setText("Please select a different option");
         inputArea.setEditable(false);
         interactionButton = new InteractionButton();

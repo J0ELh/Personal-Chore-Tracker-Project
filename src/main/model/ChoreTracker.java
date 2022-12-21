@@ -87,6 +87,9 @@ public class ChoreTracker implements Writable {
     //randomly but in the short-term some people may receive more chores than others
     @SuppressWarnings("methodlength")
     public void assignChoresRandomly() {
+        if (listOfMembers.size() == 0) {
+            return;
+        }
         EventLog.getInstance().logEvent(new Event("Outstanding chores randomly assigned to different people"));
         //randomize people in arraylist to prevent later people from getting fewer tasks
         //and to make sure people get different chores

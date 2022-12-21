@@ -6,7 +6,7 @@ import model.Person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//NOTE: ALL OF THIS CODE IS STRONGLY BASED ON THE CODE PROVIDED BY JsonSerializationDemo provided on edx from our UBC
+//NOTE: ALL OF THIS CODE IS INSPIRED BY THE CODE PROVIDED BY JsonSerializationDemo provided on edx from our UBC
 //CPSC 210 course team.
 
 public class JsonTest {
